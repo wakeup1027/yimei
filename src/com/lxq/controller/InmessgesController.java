@@ -15,7 +15,7 @@ import com.lxq.beans.LifeMotto;
 import com.lxq.beans.myExperience;
 import com.lxq.beans.myInfo;
 import com.lxq.beans.Banner;
-import com.lxq.beans.myMajor;
+import com.lxq.beans.myMajor; 
 import com.lxq.beans.myText;
 import com.lxq.service.InmessgesService;
 
