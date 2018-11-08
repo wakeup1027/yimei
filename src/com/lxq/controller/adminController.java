@@ -27,7 +27,7 @@ import com.lxq.beans.Inmessges;
 import com.lxq.beans.LifeMotto;
 import com.lxq.beans.myExperience;
 import com.lxq.beans.myInfo;
-import com.lxq.beans.myLike;
+import com.lxq.beans.Banner;
 import com.lxq.beans.myMajor;
 import com.lxq.beans.myText;
 import com.lxq.service.adminService;
@@ -40,13 +40,38 @@ public class adminController {
 	@Autowired
 	private adminService admins;
 	
-	//==============================人生格言================================================
-	@RequestMapping(value = "/getLifeMotto.action", method = RequestMethod.POST)
+	//==============================修改大图信息================================================
+	@RequestMapping(value = "/upinfo.action", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> showsLifeMotto(int page, int rows) {
- 	   Map<String, Object> map = new HashMap<String, Object>();
- 	   map = admins.showsLifeMotto(page, rows);
-       return map;
+    public boolean upinfo(String type,String valkey) {
+		Banner bn = admins.findObject("111");
+		switch (type) {
+		case "1":
+			bn.setTitle1(valkey);
+			break;
+		case "2":
+			bn.setTitle2(valkey);
+			break;
+		case "3":
+			bn.setTitle3(valkey);
+			break;
+		case "4":
+			bn.setTitle4(valkey);
+			break;
+		case "5":
+			bn.setTitle5(valkey);
+			break;
+		case "6":
+			bn.setTitle6(valkey);
+			break;
+		case "7":
+			bn.setTitle7(valkey);
+			break;
+		default:
+			bn.setBanerpath(valkey);
+			break;
+		}
+       return admins.update(bn);
     }
 	
 	/**
@@ -80,85 +105,6 @@ public class adminController {
 		}
 	}
 	
-	//==============================我的经历==========================================
-	@RequestMapping(value = "/getExperien.action", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> showsExperien(int page, int rows) {
- 	   Map<String, Object> map = new HashMap<String, Object>();
- 	   map = admins.showsExperien(page, rows);
-       return map;
-    }
-	
-	/**
-	 * 增加“我的经历”
-	 */
-	@RequestMapping(value = "/addExperien.action", method = RequestMethod.POST)
-    @ResponseBody
-    public int addExperien(myExperience myMa){
-		myMa.setCreantime(new Timestamp(new Date().getTime()));
-		try{
-			admins.add(myMa);
-			return 1;
-		}catch(Exception e){
-			return 0;
-		}
-	}
-	
-	/**
-	 * 删除“我的经历”
-	 */
-	@RequestMapping(value = "/deletExperien.action", method = RequestMethod.POST)
-    @ResponseBody
-    public int deletExperien(String idstr){
-		myExperience mmjc = new myExperience();
-		mmjc.setId(idstr);
-		try{
-			admins.delet(mmjc);
-			return 1;
-		}catch(Exception e){
-			return 0;
-		}
-	}
-	
-	//==============================兴趣爱好==========================================
-	@RequestMapping(value = "/getMyLike.action", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> showsMyLike(int page, int rows) {
-	 	  Map<String, Object> map = new HashMap<String, Object>();
-	 	  map = admins.showsMyLike(page, rows);
-	      return map;
-	}
-		
-	/**
-	* 增加“兴趣爱好”
-	*/
-	@RequestMapping(value = "/addMyLike.action", method = RequestMethod.POST)
-	@ResponseBody
-	public int addMyLike(myLike myMa){
-		myMa.setCreantime(new Timestamp(new Date().getTime()));
-		try{
-			admins.add(myMa);
-			return 1;
-		}catch(Exception e){
-			return 0;
-		}
-	}
-		
-	/**
-	* 删除“兴趣爱好”
-	*/
-	@RequestMapping(value = "/deletMyLike.action", method = RequestMethod.POST)
-	@ResponseBody
-	public int deletMyLike(String idstr){
-		myLike mmjc = new myLike();
-		mmjc.setId(idstr);
-		try{
-			admins.delet(mmjc);
-			return 1;
-		}catch(Exception e){
-			return 0;
-		}
-	}
 		
 	//=============================我的博文=================================================
 	@RequestMapping(value = "/getMyText.action", method = RequestMethod.POST)
@@ -233,135 +179,6 @@ public class adminController {
 		}
 		try{
 			admins.delet(mmjor);
-			return 1;
-		}catch(Exception e){
-			return 0;
-		}
-	}
-	
-	//==============================关于自己==========================================
-	@RequestMapping(value = "/getMyInfo.action", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> showsMyInfo(int page, int rows) {
-		 Map<String, Object> map = new HashMap<String, Object>();
-		 map = admins.showsMyInfo(page, rows);
-		 return map;
-	}
-			
-	/**
-	* 增加“关于自己”
-	*/
-	@RequestMapping(value = "/addMyInfo.action", method = RequestMethod.POST)
-	@ResponseBody
-	public int addMyInfo(myInfo myMa){
-		myMa.setCreantime(new Timestamp(new Date().getTime()));
-		try{
-			admins.add(myMa);
-			return 1;
-		}catch(Exception e){
-			return 0;
-		}
-	}
-			
-	/**
-	* 删除“关于自己”
-	*/
-	@RequestMapping(value = "/deletMyInfo.action", method = RequestMethod.POST)
-	@ResponseBody
-	public int deletMyInfo(String idstr){
-		myInfo mmjc = new myInfo();
-		mmjc.setId(idstr);
-		try{
-			admins.delet(mmjc);
-			return 1;
-		}catch(Exception e){
-			return 0;
-		}
-	}
-	
-	//=============================我的专业=================================================
-	/**
-	 * 获取“我的专业”数据链表
-	 */
-	@RequestMapping(value = "/getMyMajor.action", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> shows(int page, int rows) {
- 	   Map<String, Object> map = new HashMap<String, Object>();
- 	   map = admins.showsMyMajor(page, rows);
-       return map;
-    }
-    
-	/**
-	 * 增加“我的专业”
-	 */
-	@RequestMapping(value = "/addMajor.action", method = RequestMethod.POST)
-    @ResponseBody
-    public int addMajor(myMajor myMa){
-		try{
-			admins.add(myMa);
-			return 1;
-		}catch(Exception e){
-			return 0;
-		}
-	}
-	
-	/**
-	 * 删除“我的专业”
-	 */
-	@RequestMapping(value = "/deletMajor.action", method = RequestMethod.POST)
-    @ResponseBody
-    public int deletMajor(String idstr){
-		List<myMajor> mmjor = new ArrayList<myMajor>();
-		String[] idstrCh = idstr.split(","); 
-		for(String ids : idstrCh){
-			myMajor mmjc = new myMajor();
-			mmjc.setId(ids);
-			mmjor.add(mmjc); 
-		}
-		try{
-			admins.delet(mmjor);
-			return 1;
-		}catch(Exception e){
-			return 0;
-		}
-	}
-	
-	//==========================个人简历=====================================
-	/**
-	 * 获取“个人简历”数据链表
-	 */
-	@RequestMapping(value = "/getInmesge.action", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> showsInmesge(int page, int rows) {
- 	   Map<String, Object> map = new HashMap<String, Object>();
- 	   map = admins.showsInmesge(page, rows);
-       return map;
-    }
-    
-	/**
-	 * 增加“个人简历”
-	 */
-	@RequestMapping(value = "/addInmesge.action", method = RequestMethod.POST)
-    @ResponseBody
-    public int addInmesge(Inmessges myMa){
-		try{
-			admins.add(myMa);
-			return 1;
-		}catch(Exception e){
-			return 0;
-		}
-	}
-	
-	/**
-	 * 删除“个人简历”
-	 */
-	@RequestMapping(value = "/deletInmesge.action", method = RequestMethod.POST)
-    @ResponseBody
-    public int deletInmesge(String idstr){
-		Inmessges mmjc = new Inmessges();
-		mmjc.setId(idstr);
-		try{
-			admins.delet(mmjc);
 			return 1;
 		}catch(Exception e){
 			return 0;

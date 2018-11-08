@@ -11,7 +11,7 @@ import com.lxq.beans.Inmessges;
 import com.lxq.beans.LifeMotto;
 import com.lxq.beans.myExperience;
 import com.lxq.beans.myInfo;
-import com.lxq.beans.myLike;
+import com.lxq.beans.Banner;
 import com.lxq.beans.myMajor;
 import com.lxq.beans.myText;
 import com.lxq.dao.Dao;
@@ -65,8 +65,8 @@ public class InmessgesService {
 	/**
 	 * 获取兴趣爱好
 	 */
-	public myLike listLike(){
-		List<myLike> list = dao.find("FROM myLike ORDER BY creantime DESC");
+	public Banner listLike(){
+		List<Banner> list = dao.find("FROM myLike ORDER BY creantime DESC");
 		return list.get(0);
 	}
 	

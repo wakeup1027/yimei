@@ -14,7 +14,7 @@ import com.lxq.beans.Inmessges;
 import com.lxq.beans.LifeMotto;
 import com.lxq.beans.myExperience;
 import com.lxq.beans.myInfo;
-import com.lxq.beans.myLike;
+import com.lxq.beans.Banner;
 import com.lxq.beans.myMajor;
 import com.lxq.beans.myText;
 import com.lxq.service.InmessgesService;
@@ -54,7 +54,7 @@ public class InmessgesController {
 		LifeMotto MottoList = userser.listMotto();
 		myExperience MyExperList = userser.listExper();
 		myInfo InfoList = userser.listMyinfo();
-		myLike  MyLikeList = userser.listLike();
+		Banner  MyLikeList = userser.listLike();
 		List<myMajor> MyMajor = userser.listMajor();
 		List<myText> MyTextList = userser.listText();
 		

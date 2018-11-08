@@ -19,41 +19,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		body{height:92%;background:#fff;}
 	</style>
 </head>
-<body>
+<body style="padding:0px; margin:0px;">
 <script>
 	$(function(){
-		$('#dg').datagrid({
-		    height: '100%',
-		    fit:true,
-		    url: '<%=basePath %>framework/admin/getMyLike.action',
-		    method: 'POST',
-		    striped: true,
-		    nowrap: true,
-		    pageSize: 10,
-		    pageNumber:1, 
-		    pageList: [10, 20, 50, 100, 150, 200],
-			pagination : true,
-		    showFooter: true, 
-			loadMsg : '数据加载中请稍后……',
-		    toolbar:"#tb",
-		    singleSelect: false,
-			rownumbers:true,
-			columns: [[
-					    {field: 'ck', checkbox:true},
-					    {field: 'title', title:'标题', width:250},
-					    {field: 'creantime', title:'创建时间', width:150,formatter:fotmateDate}
-		    ]]
-		});
-		
 		$("input").mouseover(function(){
 			$(this).css("border","1px dashed #fff");
 		}).mouseout(function(){
 			$(this).css("border","none");
 		});
-		$("#upbackbox").mouseover(function(){
-			$(this).css("border","1px dashed #fff");
-		}).mouseout(function(){
-			$(this).css("border","none");
+		$(".valkey").change(function(){
+			console.log($(this).attr("wit"));
+			$.ajax({
+		        url: "<%=basePath%>framework/admin/upinfo.action",
+		        type: "POST",
+		        data:{
+		        	"valkey":$(this).val(),
+		        	"type":$(this).attr("wit")
+		        },
+		        dataType: "json",
+		        success: function(data){
+		        	console.log(data);
+		        },error:function(er){
+		        	console.log(er);
+		        }
+		    });	
 		});
 	});
 	
@@ -127,29 +116,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 </script>
 
-<div id="upbackbox" style="background:url(../img/slideshow/slide5.png); background-size:100%; width:100%; height:500px; margin-top:0px; padding-top:200px;">
+<div id="upbackbox" style="background:url(../img/slideshow/slide5.png) no-repeat; background-size:100%; width:100%; height:500px; margin-top:0px; padding-top:200px;">
 	<div style="width:600px; height:500px; margin-left:200px;">
 		<div>
-			<input value="轻松去黑头" style="width:120px; height:40px; font-size:18px; background:none; border:none;"/>
-			<input value="收缩毛孔，光滑肌肤" style="height:30px; font-size:14px; background:none; border:none;"/>
+			<input class="valkey" wit="1" value="轻松去黑头" style="width:120px; height:40px; font-size:18px; background:none; border:none;"/>
+			<input class="valkey" wit="2" value="收缩毛孔，光滑肌肤" style="height:30px; font-size:14px; background:none; border:none;"/>
 		</div>
 		<div>
-			<input value="控油祛黑头组合  4件套组合" style="height:30px; font-size:14px; background:none; border:none;">
+			<input class="valkey" wit="3" value="控油祛黑头组合  4件套组合" style="height:30px; font-size:14px; background:none; border:none;"/>
 		</div>
 		<div>
-			<input value="清爽净透柔肤水  120ml" style="height:30px; font-size:14px; background:none; border:none;">
+			<input class="valkey" wit="4" value="清爽净透柔肤水  120ml" style="height:30px; font-size:14px; background:none; border:none;"/>
 		</div>
 		<div>
-			<input value="毛孔细嫩净化乳  30g" style="height:30px; font-size:14px; background:none; border:none;">
+			<input class="valkey" wit="5" value="毛孔细嫩净化乳  30g" style="height:30px; font-size:14px; background:none; border:none;"/>
 		</div>
 		<div>
-			<input value="清凉薄荷啫喱  30g" style="height:30px; font-size:14px; background:none; border:none;">
+			<input class="valkey" wit="6" value="清凉薄荷啫喱  30g" style="height:30px; font-size:14px; background:none; border:none;"/>
 		</div>
 		<div>
-			<input value="祛黑头净颜贴  10片装" style="height:30px; font-size:14px; background:none; border:none;">
+			<input class="valkey" wit="7" value="祛黑头净颜贴  10片装" style="height:30px; font-size:14px; background:none; border:none;"/>
 		</div>
 	</div>
 </div>
-<div style="border:1px dashed #000; width:50px; height:30px;">修改大图</div>
+<div id="editBmageBtn" style="border:1px dashed #999; text-align:center; cursor:pointer; color:#999;  width:60px; height:30px; line-height:30px; position:absolute; top:0px; right:0px; font-size:13px;">修改大图</div>
 </body>
 </html>

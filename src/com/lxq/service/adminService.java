@@ -13,7 +13,7 @@ import com.lxq.beans.Inmessges;
 import com.lxq.beans.LifeMotto; 
 import com.lxq.beans.myExperience;
 import com.lxq.beans.myInfo;
-import com.lxq.beans.myLike;
+import com.lxq.beans.Banner;
 import com.lxq.beans.myMajor;
 import com.lxq.beans.myText;
 import com.lxq.dao.Dao;
@@ -44,6 +44,24 @@ public class adminService<T> {
 	 */
 	public void delet(T sd){
 		dao.delete(sd);
+	}
+	
+	/**
+	 * 修改单条数据
+	 */
+	public boolean update(T sd){
+		try {
+			dao.update(sd);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public Banner findObject(String idstr){
+		String hql = "from Banner where id = '"+idstr+"'";
+		List<Banner> bnl = dao.find(hql);
+		return bnl.get(0);
 	}
 	
 	/**
@@ -94,8 +112,8 @@ public class adminService<T> {
 	public Map<String, Object> showsMyLike(int page, int rows){
 		Map<String, Object> map = new HashMap<String, Object>();
 		String hql = "FROM myLike";
-		List<myLike> orders = this.dao.findByPage(hql, Integer.valueOf(page), Integer.valueOf(rows));
-		Long total = this.dao.count(myLike.class,hql);
+		List<Banner> orders = this.dao.findByPage(hql, Integer.valueOf(page), Integer.valueOf(rows));
+		Long total = this.dao.count(Banner.class,hql);
 		map.put("rows", orders);
 	    map.put("total", total);
 	    return map;
